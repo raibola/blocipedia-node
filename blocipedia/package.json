@@ -1,0 +1,19 @@
+{
+  "name": "blocipedia",
+  "version": "1.0.0",
+  "description": "A Wiki-like application that allows to create, edit, destroy wikis and collaborate with others",
+  "main": "src/server.js",
+  "scripts": {
+    "test": "export NODE_ENV=test && jasmine"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/raibola/blocipedia-node.git"
+  },
+  "author": "Raissa Bola",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/raibola/blocipedia-node/issues"
+  },
+  "homepage": "https://github.com/raibola/blocipedia-node#readme"
+}
