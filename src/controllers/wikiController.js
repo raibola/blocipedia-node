@@ -17,7 +17,8 @@ module.exports = {
     create(req, res, next){
         let newWiki = {
           title: (req.body.title),
-          body: (req.body.body)
+          body: (req.body.body),
+          private: false
         };
         wikiQueries.addWiki(newWiki, (err, wiki) => {
           if(err){
@@ -30,7 +31,8 @@ module.exports = {
     show(req, res, next){
 
              wikiQueries.getWiki(req.params.id, (err, wiki) => {
-        
+              console.log('error');
+              console.log(err)
                if(err || wiki == null){
                  res.redirect(404, "/");
                } else {
