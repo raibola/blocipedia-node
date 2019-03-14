@@ -11,7 +11,8 @@ describe("routes : wikis", () => {
   
          Wiki.create({
            title: "Wiki World",
-           body: "There is a lot of them"
+           body: "There is a lot of them",
+           private: false
          })
           .then((wiki) => {
             this.wiki = wiki;
@@ -115,6 +116,47 @@ describe("routes : wikis", () => {
         });
       });
 
+    });
+
+  });
+
+  describe("GET /wikis/:id/edit", () => {
+
+    it("should render a view with an edit wiki form", (done) => {
+      request.get(`${base}${this.wiki.id}/edit`, (err, res, body) => {
+        expect(err).toBeNull();
+        expect(body).toContain("Edit Wiki");
+        expect(body).toContain("Wiki World");
+        done();
+      });
+    });
+
+  });
+
+  describe("POST /wikis/:id/update", () => {
+
+    it("should update the wiki with the given values", (done) => {
+       const options = {
+          url: `${base}${this.wiki.id}/update`,
+          form: {
+            title: "Trading Cards",
+            description: "There are a lot of them"
+          }
+        };
+//#1
+        request.post(options,
+          (err, res, body) => {
+
+          expect(err).toBeNull();
+//#2
+          Wiki.findOne({
+            where: { id: this.wiki.id }
+          })
+          .then((wiki) => {
+            expect(wiki.title).toBe("Trading Cards");
+            done();
+          });
+        });
     });
 
   });
