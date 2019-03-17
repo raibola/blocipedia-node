@@ -23,8 +23,6 @@ module.exports = class WikiPolicy extends ApplicationPolicy {
     }
 
     destroy() {
-        if (this.user.isAdmin() || this.user.isOwner()) {
             return this.update();
-        }
     }
  }
