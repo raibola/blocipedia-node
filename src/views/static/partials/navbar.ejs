@@ -12,6 +12,16 @@
             </a>
           </li>
           <% if(currentUser) { %>
+            <% if(currentUser.role == 0) { %>
+              <li class="nav-item">
+                <a class="nav-link" href="/users/show">Upgrade</a>
+              </li>
+            <% } %>
+            <% if (currentUser.role == 1) { %>
+              <li class="nav-item">
+                <a class="nav-link" href="/users/show">Downgrade</a>
+              </li>
+            <% } %>
             <li class="nav-item">
               <a class="nav-link" href="/users/signout">Sign out</a>
             </li>

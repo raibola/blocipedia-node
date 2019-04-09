@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include ../static/partials/head.ejs %>
+    <script type="text/javascript">
+      function getConfirmation(){
+        var retVal = confirm("Are you sure? All of your private Wikis will become public!");
+        const url = '/users/downgrade';
+        if( retVal == true ){
+          return fetch(url, {
+            method: "POST",
+          })
+          .then(response => {
+            response.json();
+          })
+        } else {
+          console.log("User does not want to continue!");
+          return false;
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <% include ../static/partials/navbar.ejs %>
+
+    <main class="container">
+      <% include ../static/partials/messages.ejs %>
+      
+      <div style="display: flex; align-items:center;">
+        <h1><%= currentUser.username %>'s Profile </h1>
+      </div>
+
+      <p>Email: <%= currentUser.email %> </p>
+      <p>Member level:
+        <% if(currentUser.role === 0) { %> Standard 
+            <p>Upgrade to Premium for only $15!</p>
+            <form action="/users/<%= currentUser.id %>/upgrade" method="POST">
+              <script
+                  src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                  data-key = "pk_test_ohRZqgngCBdh2IPvJx3MK7vl00sDbJgVKa"
+                  data-amount="1500"
+                  data-name="Blocipedia"
+                  data-description="Premium membership"
+                  data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+                  data-locale="auto">
+              </script>
+            </form>
+        <% } else if (currentUser.role === 1) { %> Premium
+          
+            <form>
+              <input type="submit" value="Downgrade membership" class="btn btn-danger" onclick="getConfirmation();">
+            </form>
+        <% } else if (currentUser.role === 2) { %> Admin
+            
+        <% } %>
+      </p>
+    </main>
+
+    <% include ../static/partials/baseScripts.ejs %>
+
+  </body>
+</html>

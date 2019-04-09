@@ -6,7 +6,7 @@ const Wiki = require("../../src/db/models").Wiki;
 
 describe("routes : wikis", () => {
     beforeEach((done) => {
-        this.wiki;
+        this.wiki;        
         sequelize.sync({force: true}).then((res) => {
   
          Wiki.create({
@@ -22,7 +22,6 @@ describe("routes : wikis", () => {
             console.log(err);
             done();
           });
-  
         });
   
       });
