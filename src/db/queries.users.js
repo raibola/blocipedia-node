@@ -21,6 +21,7 @@ module.exports = {
     })
   },
 
+  
   getUser(id, callback){
     return User.findById(id, {
       include: [  {
