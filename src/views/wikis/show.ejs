@@ -8,16 +8,25 @@
 
     <main class="container">
       <h1><%= wiki.title %></h1>
-      <% if (currentUser) { %>
-      <a href="/wikis/<%= wiki.id %>/edit" class="btn btn-warning">Edit</a>
+     
+
+      <p><%= wiki.body %></p>
+
+      <% if (wiki.private === true) { %>
+        <h6>Privacy: Private</h6>
+      <% } else { %>
+        <h6>Privacy: Public</h6>
       <% } %>
 
-      <% if (currentUser && (currentUser.isAdmin() || currentUser.id == wiki.userId)) { %>
-      <form style="display:initial" action="/wikis/<%= wiki.id %>/destroy" method="post">
-        <button type="submit" class="btn btn-danger">Delete</button>
-      </form>
-      <% } %>
-      <p><%= wiki.body %></p>
+      <% if (currentUser) { %>
+        <a href="/wikis/<%= wiki.id %>/edit" class="btn btn-warning">Edit</a>
+        <% } %>
+  
+        <% if (currentUser && (currentUser.isAdmin() || currentUser.id == wiki.userId)) { %>
+        <form style="display:initial" action="/wikis/<%= wiki.id %>/destroy" method="post">
+          <button type="submit" class="btn btn-danger">Delete</button>
+        </form>
+        <% } %>
     </main>
 
     <% include ../static/partials/baseScripts.ejs %>
