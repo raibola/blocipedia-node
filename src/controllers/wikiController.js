@@ -1,4 +1,5 @@
 const wikiQueries = require("../db/queries.wikis.js");
+const userQueries = require("../db/queries.users.js");
 const Authorizer = require("../policies/wiki")
 const markdown = require( "markdown" ).markdown;
 
