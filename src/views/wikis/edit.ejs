@@ -12,14 +12,13 @@
 
       <form action="/wikis/<%= wiki.id %>/update" method="post">
         <div class="form-group">
-          <label for="title">Wiki title</label>
+          <label for="title">Title</label>
           <input value="<%= wiki.title %>" type="text" class="form-control" name="title" aria-describedby="titleHelp" placeholder="Enter Title">
         </div>
         <div class="form-group">
           <label for="body">Body</label>
           <textarea rows="4" class="form-control" name="body" placeholder="Enter Description"><%= wiki.body %></textarea>
         </div>
-
         <% if (currentUser && (currentUser.isAdmin() || currentUser.isPremium())) { %> 
           <div class="form-group">
             <label for="private">Make Private?</label>
@@ -27,13 +26,21 @@
               <option value="true">Yes</option>
               <option value="false">No</option>
             </select>
-          </div>  
+          </div>
         <% } %>
         <button type="submit" class="btn btn-primary">Update</button>
       </form>
+      <p>
+        <% include ../collaborators/add.ejs %>
+      </p>
+      <h3>Collaborators</h3>
+      <% if(wiki.collaborators) { %>
+        <% wiki.collaborators.forEach((collaborator) => { %>
+          <%- include("../collaborators/show.ejs", {collaborator}) %>
+        
+        <% }) %>
+      <% } %>
     </main>
-
     <% include ../static/partials/baseScripts.ejs %>
-
   </body>
 </html>

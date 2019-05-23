@@ -1,0 +1,18 @@
+
+  <% if(collaborator) { %>
+    <div style="width: 50%">
+      <hr>
+      <p>
+        <%= collaborator.User.username %>
+      </p>
+          <% } %> 
+      
+      <% if(currentUser.id == wiki.userId || currentUser.isAdmin()) { %>
+        <form style="display:initial"
+            action="/wikis/<%= wiki.id %>/collaborators/<%= collaborator.id %>/destroy"
+            method="post">
+          <button type="submit" class="btn btn btn-sm btn-outline-danger">Remove Collaborator</button>
+        </form>
+      <% } %>
+      <hr>
+    </div>
